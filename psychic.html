@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Psychic Game!!!</title>
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="style.css">
+
+</head>
+<body>
+	<div id="clouds">
+
+		<div class="container" >
+			<div class="cloud x1"></div>
+			
+			<div class="row" >
+				<div class="col-md-12">
+					
+					<h1>The Psychic Game</h1>
+				
+				</div>
+			</div>
+
+			<div class="cloud x2"></div>
+			<div class="row">
+				<div class="col-md-6">
+		
+					<p>Guess what letter I am thinking of</p>
+
+				</div>
+			</div><br>
+
+			<div class="cloud x3"></div>
+
+			<div class="row">
+
+				<div class="col-md-5 column1">
+					<div class="row" >
+						<div class="col-md-3">
+								
+							<p>Wins: <span id ="wins"></span></p>
+
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-md-3">
+								
+							<p>Loses: <span id="loses"></span></p>
+							
+						</div>
+					</div>
+				</div>
+			
+				<div class="col-md-5 col-md-offset-1 column2">
+					<div class="row">
+						<div class="col-md-5">
+								
+							<p>Guesses Left: <span id="guessesleft"></span></p>
+							
+						</div>
+					</div>
+						
+					<div class="row">	
+						<div class="col-md-7">
+								
+							<p>Your guesses so for: <span id="guesses"></span></p>
+
+						</div>
+					</div>
+				</div>
+
+			</div>	
+			<div class="cloud x4"></div>
+
+		</div>
+		<div class="cloud x1"></div>
+
+	</div>
+
+<script>
+
+var wins=0;
+var loses=0;
+var noofguess=0;
+var guessed=[];
+var MAX_GUESSES = 10;
+document.getElementById('guessesleft').innerHTML=MAX_GUESSES;
+
+function random_character()
+  {
+    
+    var chars = "abcdefghijklmnopqurstuvwxyz";
+    return chars.substr( Math.floor(Math.random() * 26), 1);
+  
+  }
+
+var completter = random_character();
+
+document.onkeyup = function(event){
+               
+  var flag=false;
+  var userletter = String.fromCharCode(event.keyCode).toLowerCase();
+  if(userletter===completter)
+    {
+
+      wins=wins+1;
+      flag=true;
+      document.getElementById("wins").innerHTML=wins;
+
+    }
+      else
+        {
+
+          guessed.push(userletter);
+          MAX_GUESSES=MAX_GUESSES-1;
+          document.getElementById("guessesleft").innerHTML=MAX_GUESSES;
+          for(var i=0;i<guessed.length;i++)
+            {
+              document.getElementById("guesses").innerHTML=guessed.toString();
+            }
+
+          if(MAX_GUESSES===0)
+            {
+              loses=loses+1;
+              document.getElementById("loses").innerHTML=loses;
+              flag=true;
+            }
+        }
+  if(flag)
+    {
+
+      completter=random_character();
+      MAX_GUESSES=10;
+      guessed=[];
+      document.getElementById("guessesleft").innerHTML=MAX_GUESSES;
+      document.getElementById("guesses").innerHTML=guessed.toString();
+      
+    }
+}
+
+</script>
+		
+</body>
+</html>
